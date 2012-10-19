@@ -578,6 +578,8 @@ module ActiveDirectory
 
 			if valid_attribute? name.to_sym
 				get_attr(name)
+			elsif name == "displayname"
+				return nil
 			else
 				super
 			end

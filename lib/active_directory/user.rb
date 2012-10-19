@@ -24,6 +24,9 @@ module ActiveDirectory
 
 		UAC_ACCOUNT_DISABLED = 0x0002
 		UAC_NORMAL_ACCOUNT   = 0x0200 # 512
+		UAC_PASSWORD_NEVER_EXPIRES = 0x10200 #65536
+
+		@time = Time.now
 
 		def self.filter # :nodoc:
 			Net::LDAP::Filter.eq(:objectClass,'user') & ~Net::LDAP::Filter.eq(:objectClass,'computer')
@@ -105,6 +108,20 @@ module ActiveDirectory
 		end
 
 		#
+		# Returns true if this account has a password that does not expire.
+		#
+		def password_never_expires?
+			userAccountControl.to_i & UAC_PASSWORD_NEVER_EXPIRES != 0
+		end
+
+		#
+		# Displays the password age in days, hours, minutes, and seconds
+
+		def password_age
+			display_time(@time - pwdLastSet)
+		end
+
+		#
 		# Returns true if the user should be able to log in with a correct
 		# password (essentially, their account is not disabled or locked
 		# out).
@@ -148,5 +165,33 @@ module ActiveDirectory
 		def unlock!
 			@@ldap.replace_attribute(distinguishedName, :lockoutTime, ['0'])
 		end
+
+		private
+
+		def display_time(total_seconds)
+	    total_seconds = total_seconds.to_i
+	    
+	    days = total_seconds / 86400
+	    hours = (total_seconds / 3600) - (days * 24)
+	    minutes = (total_seconds / 60) - (hours * 60) - (days * 1440)
+	    seconds = total_seconds % 60
+	    
+	    display = ''
+	    display_concat = ''
+	    if days > 0
+	      display = display + display_concat + "#{days}d"
+	      display_concat = ' '
+	    end
+	    if hours > 0 || display.length > 0
+	      display = display + display_concat + "#{hours}h"
+	      display_concat = ' '
+	    end
+	    if minutes > 0 || display.length > 0
+	      display = display + display_concat + "#{minutes}m"
+	      display_concat = ' '
+	    end
+	    display = display + display_concat + "#{seconds}s"
+	    display
+  	end
 	end
 end
