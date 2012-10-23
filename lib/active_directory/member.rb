@@ -19,35 +19,40 @@
 #++ license
 
 module ActiveDirectory
-	module Member
-		#
-		# Returns true if this member (User or Group) is a member of
-		# the passed Group object.
-		#
-		def member_of?(usergroup)
-			group_dns = memberOf
-			return false if group_dns.nil? || group_dns.empty?
-			#group_dns = [group_dns] unless group_dns.is_a?(Array)
-			group_dns.include?(usergroup.dn)
-		end
+  module Member
+    #
+    # Returns true if this member (User or Group) is a member of
+    # the passed Group object.
+    #
+    def member_of?(usergroup)
+      begin
+        groups = memberOf
+      rescue ArgumentError
+        #if we catch an error from the memberOf call, it probably means there are no groups
+        return false
+      end
+      return false if groups.nil? || groups.empty?
+      group_dns = [groups].flatten.collect {|g| g.dn }
+      group_dns.include?(usergroup.dn)
+    end
 
-		#
-		# Add the member to the passed Group object. Returns true if this object
-		# is already a member of the Group, or if the operation to add it succeeded.
-		#
-		def join(group)
-			return false unless group.is_a?(Group)
-			group.add(self)
-		end
+    #
+    # Add the member to the passed Group object. Returns true if this object
+    # is already a member of the Group, or if the operation to add it succeeded.
+    #
+    def join(group)
+      return false unless group.is_a?(Group)
+      group.add(self)
+    end
 
-		#
-		# Remove the member from the passed Group object. Returns true if this
-		# object is not a member of the Group, or if the operation to remove it
-		# succeeded.
-		#
-		def unjoin(group)
-			return false unless group.is_a?(Group)
-			group.remove(self)
-		end
-	end
+    #
+    # Remove the member from the passed Group object. Returns true if this
+    # object is not a member of the Group, or if the operation to remove it
+    # succeeded.
+    #
+    def unjoin(group)
+      return false unless group.is_a?(Group)
+      group.remove(self)
+    end
+  end
 end
