@@ -584,5 +584,4 @@ module ActiveDirectory
     end
 
   end
->>>>>>> mmoyer/master
 end
