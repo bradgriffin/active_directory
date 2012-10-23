@@ -25,6 +25,7 @@ module ActiveDirectory
 		UAC_ACCOUNT_DISABLED = 0x0002
 		UAC_NORMAL_ACCOUNT   = 0x0200 # 512
 		UAC_PASSWORD_NEVER_EXPIRES = 0x10200 #65536
+		#UAC_ACCOUNT_EXPIRED = 
 
 		@time = Time.now
 
@@ -106,6 +107,13 @@ module ActiveDirectory
 		def disabled?
 			userAccountControl.to_i & UAC_ACCOUNT_DISABLED != 0
 		end
+
+		#
+		# Returns true if this account is expired.
+		#
+		#def expired?
+		#	userAccountControl.to_i & UAC_ACCOUNT_EXPIRED != 0
+		#end
 
 		#
 		# Returns true if this account has a password that does not expire.
