@@ -111,9 +111,9 @@ module ActiveDirectory
 		#
 		# Returns true if this account is expired.
 		#
-		#def expired?
-		#	userAccountControl.to_i & UAC_ACCOUNT_EXPIRED != 0
-		#end
+		def expired?
+			!lockoutTime.nil? && lockoutTime.to_i != 0
+		end
 
 		#
 		# Returns true if this account has a password that does not expire.

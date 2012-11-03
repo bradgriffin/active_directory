@@ -69,6 +69,7 @@ module ActiveDirectory
       :lastlogontimestamp => :Timestamp,
       :pwdlastset => :Timestamp,
       :accountexpires => :Timestamp,
+      :lockouttime => :Timestamp,
       :memberof => :MemberDnArray,
     },
 
