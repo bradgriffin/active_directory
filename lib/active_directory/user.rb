@@ -109,7 +109,15 @@ module ActiveDirectory
 		# Returns true if this account is expired.
 		#
 		def expired?
-			!lockoutTime.nil? && lockoutTime.to_i != 0
+			@time = Time.now
+			if accountexpires === 0
+				return :false
+			elsif
+				@time > accountexpires
+				return :true
+			else
+				return :false
+			end
 		end
 
 		#
@@ -117,15 +125,6 @@ module ActiveDirectory
 		#
 		def password_never_expires?
 			userAccountControl.to_i & UAC_PASSWORD_NEVER_EXPIRES != 512
-		end
-
-		#
-		# Returns true if the user should be able to log in with a correct
-		# password (essentially, their account is not disabled or locked
-		# out).
-		#
-		def can_login?
-			!disabled? && !locked?
 		end
 
 		#
