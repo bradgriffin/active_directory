@@ -123,7 +123,7 @@ module ActiveDirectory
 		# Returns true if this account has a password that does not expire.
 		#
 		def password_never_expires?
-			userAccountControl.to_i & UAC_PASSWORD_NEVER_EXPIRES != 512
+			userAccountControl.to_i & UAC_PASSWORD_NEVER_EXPIRES != 0
 		end
 
 		#
