@@ -24,7 +24,7 @@ module ActiveDirectory
 
 		UAC_ACCOUNT_DISABLED = 0x0002
 		UAC_NORMAL_ACCOUNT   = 0x0200 # 512
-		UAC_PASSWORD_NEVER_EXPIRES = 0x10200 #66048
+		UAC_PASSWORD_NEVER_EXPIRES = 0x10000 #65536
 
 		def self.filter # :nodoc:
 			Net::LDAP::Filter.eq(:objectClass,'user') & ~Net::LDAP::Filter.eq(:objectClass,'computer')
@@ -110,13 +110,12 @@ module ActiveDirectory
 		#
 		def expired?
 			@time = Time.now
-			if accountexpires === 0
-				return :false
-			elsif
-				@time > accountexpires
-				return :true
+			if accountexpires.to_i === -11644473600
+				return false
+			elsif @time > accountexpires
+				return true
 			else
-				return :false
+				return false
 			end
 		end
 
