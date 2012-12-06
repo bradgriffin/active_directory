@@ -91,6 +91,7 @@ module ActiveDirectory
       :memberof => :GroupDnArray,
       :member => :MemberDnArray,
       :lastlogontimestamp => :Timestamp,
+      :pwdlastset => :Timestamp,
     },
   }
 end
