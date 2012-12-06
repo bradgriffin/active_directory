@@ -90,6 +90,7 @@ module ActiveDirectory
       :objectsid => :Binary,
       :memberof => :GroupDnArray,
       :member => :MemberDnArray,
+      :lastlogontimestamp => :Timestamp,
     },
   }
 end
