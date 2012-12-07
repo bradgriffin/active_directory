@@ -30,6 +30,7 @@ Gem::Specification.new do |s|
     "lib/active_directory/field_type/group_dn_array.rb",
     "lib/active_directory/field_type/member_dn_array.rb",
     "lib/active_directory/field_type/password.rb",
+    "lib/active_directory/filed_type/sid.rb",
     "lib/active_directory/field_type/timestamp.rb",
     "lib/active_directory/field_type/user_dn_array.rb",
     "lib/active_directory/group.rb",

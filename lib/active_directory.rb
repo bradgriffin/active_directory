@@ -36,6 +36,7 @@ require 'active_directory/field_type/dn_array.rb'
 require 'active_directory/field_type/user_dn_array.rb'
 require 'active_directory/field_type/group_dn_array.rb'
 require 'active_directory/field_type/member_dn_array.rb'
+require 'active_directory/field_type/sid.rb'
 
 module ActiveDirectory
   
