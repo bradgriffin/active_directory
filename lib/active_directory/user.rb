@@ -110,7 +110,7 @@ module ActiveDirectory
 		#
 		def expired?
 			@time = Time.now
-			if accountexpires.to_i === -11644473600
+			if accountexpires.to_i === -11644473600 || accountexpires.to_i === 910692730085
 				return false
 			elsif @time > accountexpires
 				return true
