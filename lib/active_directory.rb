@@ -69,6 +69,7 @@ module ActiveDirectory
       :msexchmailboxsecuritydescriptor => :Binary,
       :lastlogontimestamp => :Timestamp,
       :lastlogon => :Timestamp,
+      :lockouttime => :Timestamp,
       :pwdlastset => :Timestamp,
       :accountexpires => :Timestamp,
       :memberof => :MemberDnArray,
