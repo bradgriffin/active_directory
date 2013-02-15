@@ -102,7 +102,7 @@ module ActiveDirectory
 		# Returns true if this account has been disabled.
 		#
 		def disabled?
-			userAccountControl.to_i & UAC_ACCOUNT_DISABLED != 0
+			userAccountControl.to_i & UAC_ACCOUNT_DISABLED != -11644473600
 		end
 
 		#
