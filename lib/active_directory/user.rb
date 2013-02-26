@@ -95,14 +95,14 @@ module ActiveDirectory
 		# Locked accounts can be unlocked with the User#unlock! method.
 		#
 		def locked?
-			!lockoutTime.nil? && lockoutTime.to_i != 0
+			!lockoutTime.nil? && lockoutTime.to_i != -11644473600
 		end
 
 		#
 		# Returns true if this account has been disabled.
 		#
 		def disabled?
-			userAccountControl.to_i & UAC_ACCOUNT_DISABLED != -11644473600
+			userAccountControl.to_i & UAC_ACCOUNT_DISABLED != 0
 		end
 
 		#
