@@ -53,7 +53,7 @@ module ActiveDirectory
 
     #All objects in the AD
     :Base => {
-      :objectguid => :Binary,
+      :objectguid => :GUID,
       :whencreated => :Date,
       :whenchanged => :Date,
       :memberof => :DnArray,
@@ -61,7 +61,7 @@ module ActiveDirectory
 
     #User objects
     :User => {
-      :objectguid => :Binary,
+      :objectguid => :GUID,
       :whencreated => :Date,
       :whenchanged => :Date,
       :objectsid => :SID,
@@ -77,7 +77,7 @@ module ActiveDirectory
 
     #Group objects
     :Group => {
-      :objectguid => :Binary,
+      :objectguid => :GUID,
       :whencreated => :Date,
       :whenchanged => :Date,
       :objectsid => :SID,
@@ -87,7 +87,7 @@ module ActiveDirectory
 
     #Computer objects
     :Computer => {
-      :objectguid => :Binary,
+      :objectguid => :GUID,
       :whencreated => :Date,
       :whenchanged => :Date,
       :objectsid => :SID,
