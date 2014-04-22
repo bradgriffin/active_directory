@@ -36,6 +36,8 @@ require 'active_directory/field_type/dn_array.rb'
 require 'active_directory/field_type/user_dn_array.rb'
 require 'active_directory/field_type/group_dn_array.rb'
 require 'active_directory/field_type/member_dn_array.rb'
+require 'active_directory/field_type/sid.rb'
+require 'active_directory/field_type/guid.rb'
 
 module ActiveDirectory
   
@@ -52,7 +54,7 @@ module ActiveDirectory
 
     #All objects in the AD
     :Base => {
-      :objectguid => :Binary,
+      :objectguid => :GUID,
       :whencreated => :Date,
       :whenchanged => :Date,
       :memberof => :DnArray,
@@ -60,13 +62,15 @@ module ActiveDirectory
 
     #User objects
     :User => {
-      :objectguid => :Binary,
+      :objectguid => :GUID,
       :whencreated => :Date,
       :whenchanged => :Date,
-      :objectsid => :Binary,
+      :objectsid => :SID,
       :msexchmailboxguid => :Binary,
       :msexchmailboxsecuritydescriptor => :Binary,
       :lastlogontimestamp => :Timestamp,
+      :lastlogon => :Timestamp,
+      :lockouttime => :Timestamp,
       :pwdlastset => :Timestamp,
       :accountexpires => :Timestamp,
       :memberof => :MemberDnArray,
@@ -74,22 +78,24 @@ module ActiveDirectory
 
     #Group objects
     :Group => {
-      :objectguid => :Binary,
+      :objectguid => :GUID,
       :whencreated => :Date,
       :whenchanged => :Date,
-      :objectsid => :Binary,
+      :objectsid => :SID,
       :memberof => :GroupDnArray,
       :member => :MemberDnArray,
     },
 
     #Computer objects
     :Computer => {
-      :objectguid => :Binary,
+      :objectguid => :GUID,
       :whencreated => :Date,
       :whenchanged => :Date,
-      :objectsid => :Binary,
+      :objectsid => :SID,
       :memberof => :GroupDnArray,
       :member => :MemberDnArray,
+      :lastlogontimestamp => :Timestamp,
+      :pwdlastset => :Timestamp,
     },
   }
 end

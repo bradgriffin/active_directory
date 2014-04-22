@@ -95,7 +95,7 @@ module ActiveDirectory
 		# Locked accounts can be unlocked with the User#unlock! method.
 		#
 		def locked?
-			!lockoutTime.nil? && lockoutTime.to_i != 0
+			!lockoutTime.nil? && lockoutTime.to_i != -11644473600
 		end
 
 		#
@@ -109,7 +109,14 @@ module ActiveDirectory
 		# Returns true if this account is expired.
 		#
 		def expired?
-			!lockoutTime.nil? && lockoutTime.to_i != 0
+			@time = Time.now
+			if accountexpires.to_i === -11644473600 || accountexpires.to_i === 910692730085
+				return false
+			elsif @time > accountexpires
+				return true
+			else
+				return false
+			end
 		end
 
 		#
